@@ -59,7 +59,7 @@ describe('Block', () => {
         });
 
         it('sets the `difficulty` according to the mining rate', () =>{
-            const possibleDifficulty = [ lastBlock.difficulty+1, lastBlock.difficulty-1 ];
+            const possibleDifficulty = [ lastBlock.difficulty+1, lastBlock.difficulty-1, 1 ];
             expect(possibleDifficulty.includes(minedBlock.difficulty)).toBe(true);
         });
 
