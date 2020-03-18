@@ -34,13 +34,13 @@ class Blockchain {
             return false;
         
         for (let i=1; i<chain.length; i++) {
-            const { timestamp, lastHash, hash, data } = chain[i];
+            const { timestamp, lastHash, hash, data, nonce, difficulty } = chain[i];
 
             // `lastHash` reference broke
             if (lastHash !== chain[i-1].hash) return false;
 
-            const hashCalc = cryptoHash(timestamp, lastHash, data);
-            // `data` corrupted; therefore, `hash` becomes invalid
+            const hashCalc = cryptoHash(timestamp, lastHash, data, nonce, difficulty);
+            // `data` or `nonce` corrupted; therefore, `hash` becomes invalid
             if (hash !== hashCalc) return false;
         }
         return true;
