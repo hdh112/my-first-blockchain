@@ -22,11 +22,12 @@ describe('Blockchain', () => {
         expect(blockchain.chain[0]).toEqual(Block.genesis());
     });
 
-    it('adds a new block to the end of the chain', () => {
+    it('adds a new block to the end of the chain and returns the new block', () => {
         const newData = 'test-data';
-        blockchain.addBlock({ data: newData });
+        const newBlock = blockchain.addBlock({ data: newData });
 
-        expect(blockchain.chain[blockchain.chain.length-1].data).toEqual(newData);
+        // expect(blockchain.chain[blockchain.chain.length-1].data).toEqual(newData);
+        expect(newBlock.data).toEqual(newData);
     });
 
     describe('isValidChain()', () => {
