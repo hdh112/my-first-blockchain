@@ -63,6 +63,15 @@ describe('Blockchain', () => {
                 });
                 
             });
+
+            describe('and the chain contains a block with a jumped difficulty', () => {
+                it('returns false', () => {
+                    // Invalidate difficulty
+                    blockchain.chain[1].difficulty = 1;
+                    blockchain.chain[2].difficulty = 4;
+                    expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
+                });
+            });
             
             describe('and the chain does not contain any invalid blocks', () => {
                 it('returns true', () => {

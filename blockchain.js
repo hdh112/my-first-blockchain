@@ -40,6 +40,10 @@ class Blockchain {
             // `lastHash` reference broke
             if (lastHash !== chain[i-1].hash) return false;
 
+            // `difficulty` jumped
+            const lastDifficulty = chain[i-1].difficulty;
+            if (Math.abs(lastDifficulty - difficulty) > 1) return false;
+
             const hashCalc = cryptoHash(timestamp, lastHash, data, nonce, difficulty);
             // `data` or `nonce` corrupted; therefore, `hash` becomes invalid
             if (hash !== hashCalc) return false;
