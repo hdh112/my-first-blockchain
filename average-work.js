@@ -3,6 +3,7 @@ const Blockchain = require('./blockchain');
 const blockchain = new Blockchain();
 
 const initialBlock = blockchain.addBlock({ data: 'initial-data' });
+console.log(`Initial hash: ${initialBlock.hash}`);
 
 let prevTimestamp, nextTimestamp, timeDiff, average;
 
