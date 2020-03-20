@@ -59,9 +59,8 @@ describe('Block', () => {
             expect(minedBlock.nonce).not.toEqual(undefined);
         });
 
-        it('sets the `difficulty` according to the mining rate', () =>{
-            const possibleDifficulty = [ lastBlock.difficulty+1, lastBlock.difficulty-1, 1 ];
-            expect(possibleDifficulty.includes(minedBlock.difficulty)).toBe(true);
+        it('sets the `difficulty` according to the mining rate', () => {
+            expect(Math.abs(lastBlock.difficulty - minedBlock.difficulty) <= 1).toBe(true);
         });
 
         it('creates a SHA-256 hash based on inputs', () => {
