@@ -1,4 +1,5 @@
 // Test suite for test-driven development
+const hex2bin = require('hex-to-binary');
 const Block = require('./block');
 const { GENESIS_DATA, MINE_RATE } = require('./config');
 const cryptoHash = require('./crypto-hash');
@@ -77,7 +78,7 @@ describe('Block', () => {
         });
 
         it('sets a hash according to difficulty', () => {
-            expect(minedBlock.hash.startsWith('0'.repeat(minedBlock.difficulty))).toBe(true);
+            expect(hex2bin(minedBlock.hash).startsWith('0'.repeat(minedBlock.difficulty))).toBe(true);
         });
     });
 
