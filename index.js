@@ -21,10 +21,19 @@ app.post('/api/mine', (req, res) => {
     const { data } = req.body;
 
     blockchain.addBlock({ data });
+    pubsub.broadcastChain();
 
     res.redirect('/api/blocks');
 });
 
+const DEFAULT_PORT = 3000;
+let PEER_PORT;
+
+// cf) window.crypto.getRandomValues() for better safety
+if (process.env.GENERATE_PEER_PORT === 'true') {
+    PEER_PORT = DEFAULT_PORT + Math.ceil( Math.random()*1000 );
+}
+
 // Set up server (localhost)
-const PORT = 3000;
+const PORT = PEER_PORT || DEFAULT_PORT;
 app.listen(PORT, () => console.log(`listening at localhost:${PORT}`));
