@@ -40,6 +40,7 @@ class PubSub {
     }
 
     // TODO: publish message on multiple channels
+    // Allow publishing message to myself for now, because of PubNub spec
     publish({ channel, message }) {
         this.pubnub.publish({ channel, message });
     }
