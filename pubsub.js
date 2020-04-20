@@ -8,11 +8,14 @@ const credentials = {
 };
 
 const CHANNELS = {
-    TEST: 'TEST'
+    TEST: 'TEST',
+    BLOCKCHAIN: 'BLOCKCHAIN'
 };
 
 class PubSub {
-    constructor() {
+    constructor({ blockchain }) {
+        this.blockchain = blockchain;
+
         this.pubnub = new PubNub(credentials);
 
         this.pubnub.subscribe({ channels: Object.values(CHANNELS) });
@@ -26,13 +29,27 @@ class PubSub {
                 const { channel, message } = messageObject;
 
                 console.log(`Message received. Channel: ${channel}. Message: ${message}`);
+
+                const parsedMessage = JSON.parse(message);
+
+                if (channel === CHANNELS.BLOCKCHAIN) {
+                    this.blockchain.replaceChain(parsedMessage);
+                }
             }
         }
     }
 
     // TODO: publish message on multiple channels
+    // Allow publishing message to myself for now, because of PubNub spec
     publish({ channel, message }) {
         this.pubnub.publish({ channel, message });
+    }
+
+    broadcastChain() {
+        this.publish({
+            channel: CHANNELS.BLOCKCHAIN,
+            message: JSON.stringify(this.blockchain.chain)
+        });
     }
 }
 
